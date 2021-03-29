@@ -1,0 +1,16 @@
+#!/bin/bash
+
+$apm/ardupilot/build/sitl/bin/arducopter -S -I0 --home 44.501293, -88.062176,177,180 --model "+" --speedup 1 --defaults $apm/ardupilot/Tools/autotest/default_aprams/copter.parm&
+
+sleep 5
+
+## Launch QGC
+open -a QGroundControl
+
+sleep 5
+
+##start MAVProxy
+
+mavproxy.py --master=tcp:127.0.0.1:57600 --out=127.0.0.1:14550 --out=127.0.0.1:5762
+
+##Launch the dronekit-python script
